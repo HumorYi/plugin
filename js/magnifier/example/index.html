@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>zoomBox</title>
+    <link rel="stylesheet" href="./magnifier.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="magnifier"></div>
+
+    <script src="./magnifier.js"></script>
+    <script>
+        generateMagnifier({
+            dom: document.querySelector('.magnifier'),
+            activeIndex: 0,
+            productImgs: [
+				{
+					small: './images/products/details/small/pendant1.jpg',
+					middle: './images/products/details/middle/pendant1.jpg',
+					big: './images/products/details/big/pendant1.jpg'
+				},
+				{
+					small: './images/products/details/small/pendant2.jpg',
+					middle: './images/products/details/middle/pendant2.jpg',
+					big: './images/products/details/big/pendant2.jpg'
+				},
+				{
+					small: './images/products/details/small/pendant3.jpg',
+					middle: './images/products/details/middle/pendant3.jpg',
+					big: './images/products/details/big/pendant3.jpg'
+				},
+				{
+					small: './images/products/details/small/pendant4.jpg',
+					middle: './images/products/details/middle/pendant4.jpg',
+					big: './images/products/details/big/pendant4.jpg'
+				}
+			],
+			customClass: 'mybox',
+        });
+    </script>
+
+</body>
+
+</html>

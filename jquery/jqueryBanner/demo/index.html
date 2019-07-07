@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="author" content="Bamboo">
+		<meta name="email" content="bamboo8493@126.com">
+		<meta name="date" content="2018-07-23 18:05:29">
+		<meta name="description" content="onlylady左侧列表图片内容的切换">
+		<meta name="keywords" content="onlylady左侧列表图片内容的切换">
+		<title>banner plug show</title>
+
+		<link href="../css/index.min.css" rel="stylesheet">
+		<link href="./jqueryRadioBtn/css/index.min.css" rel="stylesheet">
+		<link href="./css/index.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="plugInfo">
+				<h2>标题：这是一个基于jquery开发的banner多功能插件</h2>
+				<h2>作者：Bamboo</h2>
+			</div>
+
+			<div id="exhibition">
+				<div class="isOpenAutoPlay radio">
+					<h6>是否开启自动轮播</h6>
+					<button></button>
+				</div>
+				
+				<div class="isOpenCustomEvent radio">
+					<h6>是否开启自定义监听事件</h6>
+					<button></button>
+				</div>
+				
+				<div class="eventType">
+					<h6>标题触发事件类型</h6>
+					<button class="hover active">hover</button>
+					<button class="click">click</button>
+				</div>
+				
+				<div class="shape">
+					<h6>标题显示形状类型</h6>
+					<button class="square active">square</button>
+					<button class="circle">circle</button>
+				</div>
+				
+				<div class="direction">
+					<h6>标题显示方向类型</h6>
+					<button class="left active">left</button>
+					<button class="right">right</button>
+					<button class="top">top</button>
+					<button class="bottom">bottom</button>
+				</div>
+				
+				<div class="effect">
+					<h6>图片特效（单位秒）</h6>
+					<input type="number" value="0">
+					<button class="toggle active">toggle</button>
+					<button class="fade">fade</button>
+					<button class="slider">slider</button>
+				</div>
+				
+				<div class="timer">
+					<h6>间隔定时器时间（单位：秒）</h6>
+					<input type="number" value="1">
+					<button>确定</button>
+				</div>
+				
+				<div class="activeIndex">
+					<h6>初始激活索引</h6>
+					<input type="number" value="0">
+					<button>确定</button>
+				</div>
+			</div>
+
+			<div id="wrap"></div>
+		</div>
+		
+		<script src="./js/jquery1.11.1.js"></script>
+		<script src="./jqueryRadioBtn/js/index.min.js"></script>
+		<script src="../js/index.min.js"></script>
+	  <script src="./js/index.js"></script>
+	</body>
+</html>

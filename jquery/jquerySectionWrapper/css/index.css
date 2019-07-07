@@ -1,0 +1,101 @@
+/*
+ Create By luoxing on 2018/4/9 19:38
+*/
+
+html, body {
+  width    : 100%;
+  height   : 100%;
+  overflow : hidden;
+}
+
+/*滚动动画 S*/
+._sectionAnimate {
+  transition         : all 1s cubic-bezier(0.86, 0, 0.03, 1);
+  -moz-transition    : all 1s cubic-bezier(0.86, 0, 0.03, 1);
+  -webkit-transition : all 1s cubic-bezier(0.86, 0, 0.03, 1);
+  -o-transition      : all 1s cubic-bezier(0.86, 0, 0.03, 1);
+}
+
+/*滚动动画 E*/
+
+/*滚动页面样式 S*/
+._sectionWrapper,
+._sectionWrapper >ul._sectionWrap,
+._sectionWrapper >ul._sectionWrap >li._section {
+  width  : 100%;
+  height : 100%;
+}
+
+._sectionWrapper >ul._sectionWrap >li._section { overflow : hidden; }
+
+/*滚动页面样式 E*/
+
+/*小圆圈样式 S*/
+._sectionWrapper >ul._iconSerial {
+  position : fixed;
+  z-index  : 1000;
+}
+
+._sectionWrapper >ul._iconSerial >li {
+  width                 : 20px;
+  height                : 20px;
+  -webkit-border-radius : 50%;
+  -moz-border-radius    : 50%;
+  border-radius         : 50%;
+  border                : 1px solid rgba(0, 0, 0, .5);
+  background-color      : rgba(255, 255, 255, .8);
+  cursor                : pointer;
+}
+
+._sectionWrapper >ul._iconSerial >li:hover {
+  background-color : rgba(0, 0, 0, .5);
+  border           : 1px solid rgba(255, 255, 255, .8);
+}
+
+._sectionWrapper >ul._iconSerial >li._active {
+  background-color : rgb(177, 62, 62);
+}
+
+/*小圆圈位置 S*/
+._sectionWrapper >ul._iconSerial._right {
+  right      : 5%;
+  top        : 50%;
+  margin-top : -95px;
+}
+
+._sectionWrapper >ul._iconSerial._left {
+  left       : 5%;
+  top        : 50%;
+  margin-top : -95px;
+}
+
+._sectionWrapper >ul._iconSerial._top {
+  top         : 100px;
+  left        : 50%;
+  margin-left : -95px;
+}
+
+._sectionWrapper >ul._iconSerial._bottom {
+  bottom      : 5%;
+  left        : 50%;
+  margin-left : -95px;
+}
+
+._sectionWrapper >ul._iconSerial._left >li:not(:first-child),
+._sectionWrapper >ul._iconSerial._right >li:not(:first-child) {
+  margin-top : 5px;
+}
+
+._sectionWrapper >ul._iconSerial._top >li,
+._sectionWrapper >ul._iconSerial._bottom >li {
+  float : left;
+}
+
+._sectionWrapper >ul._iconSerial._top >li:not(:first-child),
+._sectionWrapper >ul._iconSerial._bottom >li:not(:first-child) {
+  margin-left : 5px;
+}
+
+/*小圆圈位置 E*/
+
+/*小圆圈样式 E*/

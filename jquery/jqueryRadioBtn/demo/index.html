@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jqueryRadioBtn</title>
+	<!-- 引入jqueryRadioBtn插件的样式文件 -->
+	<link rel="stylesheet" href="../css/index.min.css">
+</head>
+<body>
+	<span class="btnSwitch"></span>
+	<button class="btnSwitch"></button>
+
+	<!-- 先引入jquery -->
+	<script src="./js/jquery1.11.1.js"></script>
+	<!-- 引入jqueryRadioBtn插件的文件 -->
+	<script src="../js/index.min.js"></script>
+	<script>
+		$(function(){
+			// 待dom结构渲染完成之后，调用jqueryRadioBtn插件
+			$(".btnSwitch").jqueryRadioBtn({
+				isOpen: false // 关闭状态
+			});
+		});
+	</script>
+</body>
+</html>

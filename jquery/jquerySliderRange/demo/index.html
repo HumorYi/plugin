@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slide</title>
+	<link rel="stylesheet" href="../css/index.min.css">
+	<style>
+		div.range {
+			margin: 100px
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="slide">
+		0&nbsp;<input type="range" min="0" max="100" value="0">&nbsp;100<br>
+
+		<button>getSlideValue</button>
+	</div>
+
+	<script src="jquery-2.2.4.js"></script>
+	<script>
+		var $slide = $("div.slide");
+
+		$("button", $slide).on("click", function (e) {
+			alert($(this).siblings("input[type=range]").val());
+		});
+	</script> -->
+	
+	<div class="range"></div>
+	<div class="range"></div>
+
+	<script src="jquery-2.2.4.js"></script>
+	<script src="../js/index.min.js"></script>
+	<script>
+		$(function(){
+			$(".range").jquerySliderRange({
+				min: 0,
+				max: 100
+			});
+		});
+	</script>
+</body>
+</html>

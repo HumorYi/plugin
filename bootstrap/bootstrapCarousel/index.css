@@ -1,0 +1,19 @@
+@charset 'UTF8';
+/* 首页轮播 S */
+#my-index-carousel .myIndicator {
+  border: 1px solid #333333;
+  background-color: #ffffff;
+}
+#my-index-carousel .myIndicator,
+#my-index-carousel .myIndicator.active {
+  width: 15px;
+  height: 15px;
+}
+#my-index-carousel .myIndicator:not(:last-child) {
+  margin-right: 20px;
+}
+#my-index-carousel .myIndicator.active {
+  border-color: #ffffff;
+  background-color: #333333;
+}
+/* 首页轮播 E */

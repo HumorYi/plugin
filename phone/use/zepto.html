@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端扩展事件--tap、longTap--使用zapto.js库</title>
+  <script src="../zepto.js"></script>
+  <script src="../event.js"></script>
+  <script src="../touch.js"></script>
+</head>
+<body>
+  <div id="box1">按一下</div>
+  <div id="box2">长按 300ms</div>
+
+  <script>
+    $('#box1').tap(function(e) {
+      console.log(e);
+      console.log("按一下");
+    });
+
+    $("#box2").longTap(function(e) {
+      console.log(e);
+      console.log("长按");
+    });
+  </script>
+</body>
+</html>

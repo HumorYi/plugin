@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>timePicker2</title>
+	<link rel="stylesheet" href="../fontawesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/index.min.css">
+	<style>
+		html, body, div, input, ul, li {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: Arial,'Microsoft Yahei';
+			user-select: none;
+		}
+
+		li {
+			list-style-type: none;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		input {
+			outline: none;
+		}
+
+		input::-webkit-input-placeholder { /* WebKit browsers */ 
+			color: #999; 
+		} 
+		input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+			color: #999; 
+		} 
+		input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+			color: #999; 
+		} 
+		input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+			color: #999; 
+		}
+
+		#box {
+			position: relative;
+			margin-top: 100px;
+			margin-left: auto;
+			margin-right: auto;
+
+			width: 500px;
+			height: 500px;
+		}
+
+		#box > .timePicker {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		#box > .timePicker:last-child {
+			left: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">		
+		<div class="timePicker first"></div>
+		<div class="timePicker second"></div>
+	</div>
+
+	<script src="jquery-2.2.4.js"></script>
+	<script src="../js/index.min.js"></script>
+	<script>
+		$(".timePicker").jqueryTimePicker({
+			placeholder: "choice time",
+			times: "13:34:34"
+		});
+	</script>
+</body>
+</html>

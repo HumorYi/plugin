@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>combox+filter</title>
+	<link rel="stylesheet" href="../css/index.css">
+	<style>
+		html, body, ul {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: Arial, "Microsoft Yahei";
+			font-size: 14px;
+		}
+
+		.showCombox {
+			margin-top: 100px;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class="showCombox">s</div>
+	<div class="showCombox"></div>
+
+	<script src="jquery-2.2.4.js"></script>
+	<script src="../js/index.js"></script>
+	<script>
+		$(function() {
+			$("div.showCombox").jqueryCombox({
+				data: ["杰克", "露西", "汤姆"],
+				triggerEvent: {
+					input: "keyup",
+					otpions: "click"
+				},
+				isFilter: true
+			});
+		});
+	</script>
+</body>
+</html>

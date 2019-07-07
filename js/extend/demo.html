@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>请查看控制台</h1>
+
+	<script src="./BambooExtend.min.js"></script>
+
+	<script>
+		var obj = {
+				name: "bamboo",
+				info: {
+					age: 20
+				}
+			},
+			def = {
+				cc: "cc",
+				info: {
+					gg: "gg"
+				}
+			}
+		;
+
+		console.log("root obj");
+		console.log(obj);
+
+		console.log("extend obj");
+		console.log(def);
+
+		console.log("extend root obj");
+		console.log(new BambooExtend(obj, def));
+	</script>
+</body>
+</html>

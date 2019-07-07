@@ -1,0 +1,121 @@
+@charset 'UTF8';
+
+.box(@width: 100%, @height: @width) {
+    width: @width;
+    height: @height;
+}
+.boxSizing(@val: border-box) {
+    box-sizing: @val;
+}
+.defaultBorder() {
+    border: 1px solid #ddd;
+}
+.defaultActiveBorder() {
+    border: 1px solid #f00;
+}
+
+.bamboo-zoom-box {
+    ul, li {
+        padding: 0;
+	    margin: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    img {
+        border: 0;
+        vertical-align: middle;
+    }
+
+    .box();
+    .boxSizing();
+    position: relative;
+
+    &.default {
+        .bamboo-middle-box {
+            .defaultBorder();
+            
+            .bamboo-middle-square {
+                background-color: rgba(0, 0, 0, .3);
+            }
+        }
+        .bamboo-big-box {
+            .defaultBorder()
+        }
+        ul.bamboo-imgs {
+            >li {
+                .defaultBorder();
+
+                &.active {
+                    .defaultActiveBorder();
+                }
+            }
+        }
+    }
+
+    .bamboo-middle-box {
+        .box();
+        .boxSizing();
+
+        position: relative;
+
+        >img {
+            .box();
+        }
+
+        .bamboo-middle-square {
+            position: absolute;
+            opacity: 0.5;
+            display: none;            
+        }
+
+        .bamboo-middle-mask {
+            .box();
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: move;
+        }
+    }
+    
+    .bamboo-big-box{
+        .box();
+        .boxSizing();
+
+        position: absolute;
+        top: 0;
+        left: 100%;
+        z-index: 1000;
+        margin-left: 15px;
+        display: none;
+        overflow: hidden;
+
+        img {
+            position: absolute;
+        }
+    }
+
+    ul.bamboo-imgs {
+        margin-top: 20px;
+
+        &:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        >li {
+            .boxSizing();
+
+            float: left;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+    }
+}

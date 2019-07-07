@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端滑屏事件--slip--使用第三方slip.min.js库</title>
+  <style>
+    * { padding: 0; margin: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;      
+    }
+
+    /* 滑屏组件 */
+    .swipe-wrap {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swipe-wrap .swipe {
+      position: absolute;
+      width: 100%;
+    }
+
+    .swipe-wrap .swipe .swipe-box {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .swipe-wrap .swipe .swipe-box:nth-of-type(1) {
+      background-color: gray;
+    }
+    .swipe-wrap .swipe .swipe-box:nth-of-type(2) {
+      background-color: red;
+    }
+    .swipe-wrap .swipe .swipe-box:nth-of-type(3) {
+      background-color: green;
+    }
+    .swipe-wrap .swipe .swipe-box:nth-of-type(4) {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="mySlip" class="swipe-wrap">
+    <article class="swipe">
+      <div class="swipe-box">第1屏</div>
+      <div class="swipe-box">第2屏</div>
+      <div class="swipe-box">第3屏</div>
+      <div class="swipe-box">第4屏</div>
+    </article>
+  </div>
+
+  <!-- 0、引入slip.min.js库文件 -->
+  <script src="../slip.min.js"></script>
+  <script>
+    // 1、获取父元素
+    var oMySlip = document.getElementById("mySlip");
+    // 2、获取每个屏幕元素
+    var oPages = document.querySelectorAll(".swipe-box");
+    // 3、创建Slip 上下滑屛 y 左右滑屛 x
+    // var slipY = Slip(oMySlip, "y").webapp(oPages);
+    var slipX = Slip(oMySlip, "x").webapp(oPages);
+  </script>
+
+</body>
+</html>

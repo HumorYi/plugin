@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>grid</title>
+	<link rel="stylesheet" href="../css/index.min.css">
+	<style>
+		
+		html,body{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			font-size: 14px;
+			font-family: Arial,'Microsoft Yahei';
+		}
+	</style>
+</head>
+<body>
+	<div id="grid" class="dir"></div>
+
+	<script src="jquery-2.2.4.js"></script>
+	<script src="../js/index.min.js"></script>
+	<script>
+		$(function(){
+			$("#grid").jqueryGrid({
+				header: [
+					{
+						text: "Order ID",
+						name: "orderId", 
+						isOrder: true
+					},
+					{
+						text: "Customer ID",
+						name: "customerId",
+						isOrder: true
+					},
+					{
+						text: "Order Date",
+						name: "orderDate",
+						isOrder: true
+					},
+					{
+						text: "Freight",
+						name: "freight",
+						isOrder: true
+					},
+					{
+						text: "Ship Name",
+						name: "shipName",
+						isOrder: false
+					}
+				],
+				order: {
+					name: "freight",
+					type: "desc"
+				},
+				ajaxConfig: {
+					url: "gridData.json",
+					data: "page=1&pageCount=2"
+				}
+			});
+		});
+	</script>
+</body>
+</html>

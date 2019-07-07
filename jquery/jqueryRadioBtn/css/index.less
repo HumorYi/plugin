@@ -1,0 +1,75 @@
+/* 开关按钮，两套皮肤(开启、关闭) */
+/* 单选按钮样式 S */
+._radioBtn {
+	position: relative;
+	
+	margin: 0;
+	padding: 0;
+	width: 50px;
+	height: 26px;
+	display: inline-block;
+	
+	color: #fff;
+	font-size: 14px;
+	line-height: 26px;
+  border-radius: 15px;
+	
+	border: none;
+	outline: none;
+	cursor: pointer;
+  
+  /* 关闭和开启 皮肤公共样式 S */
+  &._close:before,
+  &._close:after,
+  &._open:before,
+  &._open:after {
+    position: absolute;
+  }
+  
+  &._close:after,
+  &._open:before {
+    top: 0px;
+  }
+
+  &._close:before,
+  &._open:after {
+    content: "";
+    top: 3px;
+
+    width: 20px;
+    height: 20px;
+    
+    border-radius: 50%;
+    background: #fff;
+  }
+  /* 关闭和开启 皮肤公共样式 E */
+  
+  /* 动画 S */
+  &._animate { transition: all .5s; }
+  /* 动画 E */
+  
+  /* 关闭皮肤 S */
+  &._close{
+    background: #CCC;
+  }
+  &._close:before {
+    left: 4px;
+  }
+  &._close:after {
+    content: "关";
+    right: 6px;	
+  }
+  /* 关闭皮肤 E */
+
+  /* 开启皮肤 S */
+  &._open{	background: #2DB7F5; }
+  &._open:before {
+    content: "开";
+    left: 6px;
+  }
+  &._open:after {
+    right: 4px;
+  }
+  /* 开启皮肤 E */
+}
+/* 单选按钮样式 E */

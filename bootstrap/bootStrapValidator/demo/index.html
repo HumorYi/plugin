@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <meta name="keywords" content="P2P,互联网金融,动脑学院">
+    <meta name="description" content="XXX牛逼得一笔的项目">
+	<meta charset="UTF-8">
+	<title>伟达金云桥【动脑学院】</title>
+	<link rel="stylesheet" href="./bootstrap-3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./index.css">
+</head>
+<body>
+	<div class="container">
+    <form id="frmLogin" action="main.html" method="post">
+			       <div class="form-title">用户登录</div>
+            <div class="form-group form-group-lg">
+                <div class="input-group">
+                	<div class="input-group-addon">
+        						<span class="glyphicon glyphicon-user"></span>
+        					</div>
+                  <input  type="text" class="form-control" 
+                            id="username" name="loginParam.userNameOrEmailOrPhone" placeholder="用户名">
+                </div>
+            </div>
+            
+            <div class="form-group form-group-lg">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                       <span class="glyphicon glyphicon-lock"></span>
+                    </div>
+                    <input  type="password" id="password"
+                            class="form-control" name="loginParam.passwd" 
+                            placeholder="密码">
+                </div>
+            </div>
+            
+            <div class="form-group form-group-lg">
+                <div class="col-sm-8  valid-code">
+                    <div class="input-group">
+                        <input  type="text" id="verifyCode" class="form-control"
+                                placeholder="验证码" name="loginParam.verifyCode">
+                        <div class="input-group-addon">
+                            <img id="vc" src="http://www.yunbridge.cn/verifyCode" title="点击重新获取验证码" alt="验证码">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <p class="form-control-static">
+					          <a href="#">看不清?换图片</a>
+                  </p>
+                </div>
+            </div>
+            <div class="form-group buttons">
+                    <button type="submit" class="btn btn-danger btn-block btn-lg update-btn">登录</button>
+                    <p><a href="regist.html">用户注册</a>
+                    <a href="#" class="pull-right">忘记密码？</a></p>
+            </div>
+        </form>
+    </div>
+	<script src="./jquery-2.2.4.js"></script>
+  <script src="../js/index.min.js"></script>
+	<script>
+     $(function(){
+        $("#username").data("bv", {
+            "require": {
+                "val": true, // 规则
+                "msg": "用户名必须填写" // 错误提示信息
+            },
+            "regex": {
+                "val": "^\w+$",
+                "msg": "用户应该是由字母数字下划线所组成"
+            },
+            "betweenlength": {
+                "val": "6-12",
+                "msg": "用户名长度必须是在6-12位字符之间"
+            }
+        });
+        
+        $("#password").data("bv", {
+            "require": {
+                "val": true, // 规则
+                "msg": "密码必须填写" // 错误提示信息
+            },
+            "regex": {
+                "val": "^[A-z0-9]+$",
+                "msg": "密码应该是由字母数组所组成"
+            },
+            "minlength": {
+                "val": "8",
+                "msg": "密码长度最少8位"
+            },
+            "maxlength": {
+                "val": "12",
+                "msg": "密码长度最多12位"
+            }
+        });
+
+        $("#verifyCode").data("bv", {
+            "require": {
+                "val": true, // 规则
+                "msg": "验证码必须填写" // 错误提示信息
+            },
+            "length": {
+                "val": "4",
+                "msg": "验证码必须是四位"
+            },
+            "regex": {
+                "val": "^[A-z0-9]+$",
+                "msg": "验证码必须是由字母和数字所组成、长度为四位的序列"
+            }
+        });
+
+        $("#frmLogin").bambooBootStrapValidator({
+        // triggerEvent : "change"
+        })
+        .on("error",function(event,$errFiles){
+            // alert("验证有错误");
+            return false;
+        })
+        .on("success",function(event){
+            this.submit();
+            return false;
+        });
+     });  
+    </script>
+</body>
+</html>
