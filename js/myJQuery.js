@@ -316,44 +316,6 @@ Object.prototype.addEventHandler = function(event, handler, e) {
 };
 
 /**
- * @desc 判断用户的浏览器设备是移动端还是pc端
- * @returns {String}
- * */
-function getBrowserRedirect() {
-  var sUserAgent = navigator.userAgent.toLowerCase();
-  var bIsIpad = sUserAgent.match(/ipad/i) == 'ipad';
-  var bIsIphoneOs = sUserAgent.match(/iphone os/i) == 'iphone os';
-  var bIsMidp = sUserAgent.match(/midp/i) == 'midp';
-  var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == 'rv:1.2.3.4';
-  var bIsUc = sUserAgent.match(/ucweb/i) == 'ucweb';
-  var bIsAndroid = sUserAgent.match(/android/i) == 'android';
-  var bIsCE = sUserAgent.match(/windows ce/i) == 'windows ce';
-  var bIsWM = sUserAgent.match(/windows mobile/i) == 'windows mobile';
-
-  if (
-    bIsIpad ||
-    bIsIphoneOs ||
-    bIsMidp ||
-    bIsUc7 ||
-    bIsUc ||
-    bIsAndroid ||
-    bIsCE ||
-    bIsWM
-  ) {
-    return 'phone';
-  } else {
-    return 'pc';
-  }
-}
-
-/**
- * @desc 判断是否微信浏览器中打开
- */
-function isWeiXinBrowser() {
-  return navigator.userAgent.indexOf('MicroMessenger') !== -1;
-}
-
-/**
  * @desc 定义一个扩展函数，用来讲第二个以及后续参数复制至第一个参数，
  *          这里处理IE bug：在多数IE版本中，
  *          如果o的属性拥有一个不可枚举的同名属性，
@@ -367,7 +329,7 @@ function isWeiXinBrowser() {
 var extend = (function() {
   // 在修复它之前，首先检测是否存在bug
   for (var p in { toString: null }) {
-    // 如果代码执行到这里，那么for/iun循环会正确工作并返回
+    // 如果代码执行到这里，那么for/in循环会正确工作并返回
     // 一个简单版本的extend() 函数
     return function extend(o) {
       for (var i = 0, argLen = arguments.length; i < argLen; i++) {
@@ -380,7 +342,7 @@ var extend = (function() {
   }
 
   // 如果代码执行到这里，说明for/in循环不会枚举测试对象的toString属性，
-  // 因此返回拎一个的extend()函数，这个函数显示测试 Object.prototype中的补课枚举属性
+  // 因此返回另一个的extend()函数，这个函数显示测试 Object.prototype中的补课枚举属性
   var protoProps = [
     'toString',
     'valueOf',
@@ -409,74 +371,3 @@ var extend = (function() {
     }
   };
 })();
-
-/**
- * @desc 单个单词首字母大写
- *
- * @params str {String} 要转换的单词
- *
- * @return {String} 转换好的单词
- */
-function titleCase(str) {
-  return str[0].toUpperCase() + str.slice(1);
-}
-
-/**
- * @desc 单个单词首字母小写
- *
- * @params str {String} 要转换的单词
- *
- * @return {String} 转换好的单词
- */
-
-function capitalLowerCase(str) {
-  return str[0].toLowerCase() + str.slice(1);
-}
-
-/**
- * @desc 一段单词首字母大写
- *
- * @params str {String} 要转换的一段单词
- *
- * @return {String} 转换好的一段单词
- */
-function titleCaseAll(str) {
-  return str.replace(/\b[a-z]/g, function(s) {
-    return s[0].toUpperCase() + s.slice(1);
-  });
-}
-
-/**
- * @desc 一段单词首字母小写
- *
- * @params str {String} 要转换的一段单词
- *
- * @return {String} 转换好的一段单词
- */
-function capitalLowerCase(str) {
-  return str.replace(/\b[A-Z]/g, function(s) {
-    return s[0].toLowerCase() + s.slice(1);
-  });
-}
-
-/**
- * @desc 获取数字数组中的最大值
- *
- * @params arr {Array} 要获取的数字数组
- *
- * @return {Number} 要获取的数字数组中的最大值
- */
-function getNumberArrayMax(arr) {
-  return Math.max.apply(Math, arr);
-}
-
-/**
- * @desc 获取数字数组中的最小值
- *
- * @params arr {Array} 要获取的数字数组
- *
- * @return {Number} 要获取的数字数组中的最小值
- */
-function getNumberArrayMin(arr) {
-  return Math.min.apply(Math, arr);
-}
