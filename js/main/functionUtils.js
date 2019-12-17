@@ -1,6 +1,33 @@
 let functionUtils = {
   array: {
     /**
+     * @desc 对已排序好的数组，根据提供的key，平序并在源对象中新增一个 attr 存储
+     *
+     * @param {Array} arr 要平序的数组
+     * @param {String} key 要比较的 
+     * @param {String} attr 新增序号属性名
+     *
+     * @return {Array} 已添加平序序号的原数组
+     * */
+     flatOrder(arr, key, attr='serial') {
+      let arrLen = arr.length
+      let lastVal = arr[0][key]
+      arr[0][attr] = 1
+
+      for (let i = 1; i < arrLen; i++) {
+        if (lastVal === arr[i][key]) {
+          arr[i][attr] = arr[i-1][attr]
+
+          continue
+        }
+
+        arr[i][attr] = arr[i-1][attr] + 1
+        lastVal = arr[i][key]
+      }
+
+      return arr
+    },
+    /**
      * @desc 创建指定大小的数组
      *
      * @param {Number} size 要创建数组的长度
@@ -1388,16 +1415,59 @@ let functionUtils = {
 
 // functionUtils.log(functionUtils.getFunctionName(function(){}));
 
+/*
 
+*/
 
+const arr = [
+  {
+    id: 1,
+    name: 'bamboo',
+    score: 60
+  },
+  {
+    id: 2,
+    name: 'bamboo2',
+    score: 70
+  },
+  {
+    id: 3,
+    name: 'bamboo3',
+    score: 70
+  },
+  {
+    id: 4,
+    name: 'bamboo4',
+    score: 80
+  },
+  {
+    id: 5,
+    name: 'bamboo5',
+    score: 60
+  },
+  {
+    id: 6,
+    name: 'bamboo6',
+    score: 60
+  },
+  {
+    id: 7,
+    name: 'bamboo7',
+    score: 90
+  },
+  {
+    id: 8,
+    name: 'bamboo8',
+    score: 100
+  },
+  {
+    id: 9,
+    name: 'bamboo9',
+    score: 90
+  }
+]
 
-
-
-
-
-
-
-
+console.log(functionUtils.array.flatOrder(arr.sort((a, b) => b.score - a.score), 'score'))
 
 
 
