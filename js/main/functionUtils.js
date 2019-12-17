@@ -178,6 +178,29 @@ let functionUtils = {
       return true;
     },
     /**
+     * @desc 展平一个数组，数组最多二维 [ [1, 2], [3, 4] ] => [ 1, 2, 3, 4 ]
+     *
+     * @param {Array} arr 要展平的数组
+     *
+     * @return {Array} 展平好的数组
+     * */
+    flattenOnce(arr) {
+      // return [].apply(null, arr)
+      return [].concat(...arr)
+    },
+    /**
+     * @desc 展平一个数组，数组多维(递归) [ [1, 2], 3, [ [4, 5] ] ] => [ 1, 2, 3, 4, 5 ]
+     *
+     * @param {Array} arr 要展平的数组
+     *
+     * @return {Array} 展平好的数组
+     * */
+    flatten(arr) {
+      return [].concat(
+        ...arr.map(item => Array.isArray(item) : this.flatten(item) : item)
+      )
+    },
+    /**
      * @desc 数组排序方法
      * */
     sorts: {
@@ -817,7 +840,7 @@ let functionUtils = {
         throw TypeError('please transfer a string, thanks!');
       }
 
-      return str.replace(/\b[a-z]/g, (s) => s[0].toUpperCase() + s.slice(1));
+      return str.replace(/\b[a-z]/g, s => s[0].toUpperCase() + s.slice(1));
     },
     /**
      * @desc 将一段单词首字母转换为小写
@@ -832,152 +855,204 @@ let functionUtils = {
         throw TypeError('please transfer a string, thanks!');
       }
 
-      return str.replace(/\b[A-Z]/g, (s) => s[0].toLowerCase() + s.slice(1));
+      return str.replace(/\b[A-Z]/g, s => s[0].toLowerCase() + s.slice(1));
     }
   },
-  jsonWithFunction: {
-    /**
-     * @desc json中数值有function的序列化
-     *
-     * @param {JSONObject} json 要序列化的对象
-     *
-     * @return {String} 经过序列化的字符串
-     * */
-    stringify(json) {
-      return JSON.stringify(json, (key, val) => typeof val === 'function' ? val + '' : val);
-    },
-    /**
-     * @desc json中数值有function的反序列化
-     *
-     * @param {JSONString} json 要反序列化的JOSN字符串
-     *
-     * @return {JSONObject} 经过反序列化的JSON对象
-     * */
-    parse(json) {
-      return JSON.parse(json, (key, val) => {
+  function: {
+    json: {
+      /**
+       * @desc json中数值有function的序列化
+       *
+       * @param {JSONObject} json 要序列化的对象
+       *
+       * @return {String} 经过序列化的字符串
+       * */
+      stringify(json) {
+        return JSON.stringify(json, (key, val) => typeof val === 'function' ? val + '' : val);
+      },
+      /**
+       * @desc json中数值有function的反序列化
+       *
+       * @param {JSONString} json 要反序列化的JOSN字符串
+       *
+       * @return {JSONObject} 经过反序列化的JSON对象
+       * */
+      parse(json) {
+        return JSON.parse(json, (key, val) => {
 
-        if (/^function\s*\(.*\)/.test(val)) {
-          return eval('(function(){return ' + val + ' })()');
+          if (/^function\s*\(.*\)/.test(val)) {
+            return eval('(function(){return ' + val + ' })()');
+          }
+
+          return val;
+        });
+      }
+    },
+    closure: {
+      /**
+        * @desc 使用闭包实现对象属性的getter和setter
+        * 给对象中的指定的属性实现存储器方法，
+        * 	方法名称为get<Name>和set<Name>，例如 o.getName();
+        * 如果提供了一个判断函数，setter方法就会用它来检测参数的合法性，
+        *  如果验证返回值为false，setter方法抛出一个异常，否则存储它
+        *
+        * 这个函数有一个非同寻常之处，
+        * 	就是getter和sertter方法所操作的属性值并没有存储在对象o中，
+        * 	相反，这个值仅仅是保存在函数中的局部变量中
+        * getter和setter方法同样是局部函数，因此可以访问这个局部变量，
+        * 	也就是说，对于两个存储器方法来说这个变量是私有的，
+        * 	没有办法绕过存储器方法来设置或修改这个值
+        *
+        * @param {Object} o 需要实现存储器方法的对象
+        * @param {String} name 需要实现存储器方法的名字
+        * @param {Function} predicate setter 方法的检查方法，
+        *           return {Object} { result: {Boolean}, msg: {String} }
+        *
+        * @return void
+      */
+      addPrivateProperty(o, name, predicate) {
+
+        // 参数验证操作
+        if (functionUtils.getDataType(o) !== "Object") {
+          throw TypeError(o + " must be a object");
+        }
+        if (typeof (name) !== "string") {
+          throw TypeError(name + " must be a string");
+        }
+        if (predicate && typeof (predicate) !== "function") {
+          throw TypeError(predicate + " must be a function");
         }
 
-        return val;
-      });
-    }
-  },
-  closure: {
-    /**
-      * @desc 使用闭包实现对象属性的getter和setter
-      * 给对象中的指定的属性实现存储器方法，
-      * 	方法名称为get<Name>和set<Name>，例如 o.getName();
-      * 如果提供了一个判断函数，setter方法就会用它来检测参数的合法性，
-      *  如果验证返回值为false，setter方法抛出一个异常，否则存储它
-      *
-      * 这个函数有一个非同寻常之处，
-      * 	就是getter和sertter方法所操作的属性值并没有存储在对象o中，
-      * 	相反，这个值仅仅是保存在函数中的局部变量中
-      * getter和setter方法同样是局部函数，因此可以访问这个局部变量，
-      * 	也就是说，对于两个存储器方法来说这个变量是私有的，
-      * 	没有办法绕过存储器方法来设置或修改这个值
-      *
-      * @param {Object} o 需要实现存储器方法的对象
-      * @param {String} name 需要实现存储器方法的名字
-      * @param {Function} predicate setter 方法的检查方法，
-      *           return {Object} { result: {Boolean}, msg: {String} }
-      *
-      * @return void
-    */
-    addPrivateProperty(o, name, predicate) {
-
-      // 参数验证操作
-      if (functionUtils.getDataType(o) !== "Object") {
-        throw TypeError(o + " must be a object");
-      }
-      if (typeof (name) !== "string") {
-        throw TypeError(name + " must be a string");
-      }
-      if (predicate && typeof (predicate) !== "function") {
-        throw TypeError(predicate + " must be a function");
-      }
-
-      // 对name首字母做大写操作
-      if (name[0] !== name[0].toUpperCase()) {
-        name = name[0].toUpperCase() + name.slice(1);
-      }
-
-      let value; // 这是一个私有值
-
-      // getter 方法简单地将其返回
-      o["get" + name] = () => { return value; };
-
-      // setter 方法首先检测值是否合法，若不合法，抛出一个异常，否则存储它
-      o["set" + name] = (val) => {
-
-        if (predicate && !predicate(val).result) {
-          throw new Error("set" + name + ": invaild, because " + name[0].toLowerCase() + name.slice(1) + " " + predicate(val).msg);
+        // 对name首字母做大写操作
+        if (name[0] !== name[0].toUpperCase()) {
+          name = name[0].toUpperCase() + name.slice(1);
         }
 
-        value = val;
-      };
+        let value; // 这是一个私有值
+
+        // getter 方法简单地将其返回
+        o["get" + name] = () => { return value; };
+
+        // setter 方法首先检测值是否合法，若不合法，抛出一个异常，否则存储它
+        o["set" + name] = (val) => {
+
+          if (predicate && !predicate(val).result) {
+            throw new Error("set" + name + ": invaild, because " + name[0].toLowerCase() + name.slice(1) + " " + predicate(val).msg);
+          }
+
+          value = val;
+        };
+      },
+      /**
+       * @desc 使用闭包动态修改对象已有方法--“monkey-patching”
+       *
+        * @param o {Object} 需要实现存储器方法的对象
+        * @param name {String} 需要实现存储器方法的名字
+        *
+        * @return void
+      */
+      trace(o, name) {
+
+        // 参数验证操作
+        if (functionUtils.getDataType(o) !== "Object") {
+          throw TypeError(o + " must be a object");
+        }
+        if (typeof (name) !== "string") {
+          throw TypeError(name + " must be a string");
+        }
+        if (typeof (o[name]) !== "function") {
+          throw TypeError(o[name] + " must be a function");
+        }
+
+
+        o[name] = () => {
+
+          functionUtils.log("Entering " + name);
+
+          // 调用原方法
+
+          functionUtils.log("Exiting " + name);
+
+          return o[name].apply(this, arguments);
+        }
+      },
+      /**
+       * @desc 使用闭包来实现函数记忆
+       *
+       * @param {Function} fn
+       *
+       * @returns {Function} 返回 fn() 的带有记忆功能的版本，只有当 fn() 的实参的字符串表示都不相同时它才会工作
+       */
+      memorize(fn) {
+
+        if (typeof fn !== 'function') {
+          throw TypeError('please transfer a function, thanks!');
+        }
+
+
+        // 将值缓存在闭包内
+        let cache = {};
+
+        return () => {
+
+          let key = arguments.length + Array.prototype.join.call(arguments, ",");
+
+          if (key in cache) { return cache[key]; }
+
+          return cache[key] = fn.apply(this, arguments);
+        };
+      }
     },
     /**
-     * @desc 使用闭包动态修改对象已有方法--“monkey-patching”
+     * @desc 函数节流，例如：滚动事件
      *
-      * @param o {Object} 需要实现存储器方法的对象
-      * @param name {String} 需要实现存储器方法的名字
-      *
-      * @return void
-    */
-    trace(o, name) {
+     * @param {Function} func 要执行的函数
+     * @param {Nubmer?} delay 延迟时间
+     *
+     * @returns {Boolean} 是否正整数
+     * */
+    throttle(func, delay = 60) {
+      let lock = false
 
-      // 参数验证操作
-      if (functionUtils.getDataType(o) !== "Object") {
-        throw TypeError(o + " must be a object");
-      }
-      if (typeof (name) !== "string") {
-        throw TypeError(name + " must be a string");
-      }
-      if (typeof (o[name]) !== "function") {
-        throw TypeError(o[name] + " must be a function");
-      }
+      return (...args) => {
+        if (lock) { return }
 
+        func(...args)
 
-      o[name] = () => {
+        lock = true
 
-        functionUtils.log("Entering " + name);
-
-        // 调用原方法
-
-        functionUtils.log("Exiting " + name);
-
-        return o[name].apply(this, arguments);
+        setTimeout(() => { lock = false }, delay)
       }
     },
     /**
-     * @desc 使用闭包来实现函数记忆
+     * @desc 函数节流，过滤掉重复事件，例如：用户输入停止300ms后出发验证
      *
-     * @param {Function} fn
+     * @param {Function} func 要执行的函数
+     * @param {Nubmer?} delay 延迟时间
+     * @param {timer?} timeout 要清除的定时器
      *
-     * @returns {Function} 返回 fn() 的带有记忆功能的版本，只有当 fn() 的实参的字符串表示都不相同时它才会工作
-     */
-    memorize(fn) {
+     * @returns {Boolean} 是否正整数
+     * */
+    throttleFilter(func, delay = 300, timer = null) {
+      return (...args) => {
+        timer && clearTimeout(timer)
+
+        timer = setTimeout(() => func(...args), delay)
+      }
+    },
+    /**
+     * @desc 获取函数名
+     *
+     * @returns {String} 函数名
+     * */
+    getName(fn) {
 
       if (typeof fn !== 'function') {
         throw TypeError('please transfer a function, thanks!');
       }
 
-
-      // 将值缓存在闭包内
-      let cache = {};
-
-      return () => {
-
-        let key = arguments.length + Array.prototype.join.call(arguments, ",");
-
-        if (key in cache) { return cache[key]; }
-
-        return cache[key] = fn.apply(this, arguments);
-      };
-    }
+      return fn.name || fn.toString().match(/function\s*([^(]*)\(/)[1] || "anonymous";
+    },
   },
   random: {
     /**
@@ -1234,7 +1309,13 @@ let functionUtils = {
     isIDCardName(data) {
       return /^[\u4e00-\u9fa5]{2,4}$/.test(data);
     },
-
+    /**
+     * @desc 判断是否微信浏览器中打开
+     * @returns {Boolean}
+     */
+    isWeiXinBrowser() {
+      return window && window.navigator && window.navigator.userAgent.indexOf('MicroMessenger') !== -1;
+    }
   },
   /**
    * @desc 加工版（时间和换行）日志
@@ -1262,7 +1343,7 @@ let functionUtils = {
    *
    * @returns {String}
    * */
-  getBrowserRedirect() {
+  getDeviceBrowserType() {
 
     let sUserAgent = navigator.userAgent.toLowerCase(),
       bIsIpad = sUserAgent.match(/ipad/i) == 'ipad',
@@ -1380,19 +1461,6 @@ let functionUtils = {
 
     return Math.floor((min + max) / 2 / 10) * 10;
   },
-  /**
-   * @desc 获取函数名
-   *
-   * @returns {String} 函数名
-   * */
-  getFunctionName(fn) {
-
-    if (typeof fn !== 'function') {
-      throw TypeError('please transfer a function, thanks!');
-    }
-
-    return fn.name || fn.toString().match(/function\s*([^(]*)\(/)[1] || "anonymous";
-  }
 };
 
 // 测试代码
