@@ -1,3 +1,13 @@
+/*
+ * @Author: Bamboo
+ * @AuthorEmail: bamboo8493@126.com
+ * @Date: 2019-07-07 23:22:30
+ * @Description: 功能工具
+ * @LastEditors:
+ * @LastEditorsEmail:
+ * @LastEditTime: 2019-09-23 14:02:10
+ * @LastEditorsDescription:
+ */
 let functionUtils = {
   array: {
     /**
@@ -168,15 +178,34 @@ let functionUtils = {
      *
      * @return {Array} 展平好的数组
      * */
-    flatten(arr) {
-      return [].concat(
+    flatten: function* (arr) {
+      // api + curry
+      /* return [].concat(
         ...arr.map(item => Array.isArray(item) : this.flatten(item) : item)
-      )
+      ) */
+
+      // generator + curry
+      /* for (let i = 0, len = arr.length; i < len; i++) {
+        Array.isArray(arr[i]) ? yield * this.flatten(arr[i]) : yield arr[i]
+      } */
+
+      // generator + stack
+      let stack = arr.slice()
+
+      while(stack.length) {
+        const item = stack.shift()
+        if (item.constructor === Array) {
+          stack = stack.concat(item)
+        }
+        else {
+          yield item
+        }
+      }
     },
     /**
      * @desc 数组排序方法
      * */
-    sorts: {
+    sort: {
       /**
        * @desc 数组冒泡排序
        *
@@ -205,6 +234,9 @@ let functionUtils = {
           }
         }
         return arr;
+      },
+      language(arr, language = 'zh') {
+        return arr.sort((a, b) => a.localeCompare(b, language))
       }
     },
     /**
@@ -1456,7 +1488,9 @@ let functionUtils = {
 
 // functionUtils.log(functionUtils.getFunctionName(function(){}));
 
+functionUtils.log([...functionUtils.array.flatten( [1, 2, [ 3, 4, [ [5] ] ] ] ) ]);
 
+// functionUtils.log(functionUtils.array.sort.language(['王成成', '王峰', '蒋雪', '李明']));
 
 
 
